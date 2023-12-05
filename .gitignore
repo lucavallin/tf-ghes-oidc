@@ -35,3 +35,4 @@ terraform.rc
 
 google-cloud-cli-*
 google-cloud-sdk/
+*.plan
