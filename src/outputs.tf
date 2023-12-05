@@ -25,7 +25,7 @@ output "aws_role" {
   value = ""
 }
 output "aws_region" {
-  value = ""
+  value = data.aws_region.this.name
 }
 
 # Google Cloud Configuration for OIDC

@@ -45,6 +45,7 @@ The required resources for Azure are detailed in the `src/azure.tf` file. The co
 
 - create access keys
 - aws cli, run `aws configure`
+- thumbprint per https://docs.github.com/en/enterprise-server@3.10/admin/github-actions/enabling-github-actions-for-github-enterprise-server/enabling-github-actions-with-amazon-s3-storage#1-create-an-amazon-oidc-provider
 
 
 ### Google Cloud
@@ -62,5 +63,6 @@ The required resources for Google Cloud are detailed in the `src/gcp.tf` file. T
 
 In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
 
-- Make regions configurable
-- Use random names everywhere?
+- Document variables
+- thumbprint generator script
+- add ssh keys to GHES

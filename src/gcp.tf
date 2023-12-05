@@ -12,14 +12,12 @@ resource "google_project_service" "iam_credentials" {
 
 # Setup Workload Identity Pool and Provider
 resource "google_iam_workload_identity_pool" "this" {
-  workload_identity_pool_id = "wip-ghes"
-  description               = "Identity Pool for GHES instance ${local.ghes_instance_name}."
+  workload_identity_pool_id = local.ghes_instance_name
 }
 
 resource "google_iam_workload_identity_pool_provider" "this" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.this.workload_identity_pool_id
-  workload_identity_pool_provider_id = "wipp-ghes-oidc"
-  description                        = "Identity Pool Provider for OIDC on GHES instance ${local.ghes_instance_name}."
+  workload_identity_pool_provider_id = local.ghes_instance_name
 
   attribute_condition = "google.subject == \"${local.ghes_url}\""
   attribute_mapping = {
@@ -27,15 +25,13 @@ resource "google_iam_workload_identity_pool_provider" "this" {
   }
 
   oidc {
-    issuer_uri = local.issuer_uri
+    issuer_uri = local.oidc_issuer_uri
   }
 }
 
 # Create service account and assign required permissions
 resource "google_service_account" "this" {
-  account_id   = "sa-${substr(local.ghes_instance_name, 0, 20)}-oidc"
-  display_name = "Service Account for OIDC on GHES"
-  description  = "Service Account for OIDC on GHES instance ${local.ghes_instance_name}."
+  account_id = substr(local.ghes_instance_name, 0, 28)
 }
 
 resource "google_project_iam_binding" "sa_storage" {
@@ -59,9 +55,6 @@ resource "google_service_account_iam_binding" "sa_workload_identity" {
 
 # Storage bucket for Actions data
 resource "google_storage_bucket" "this" {
-  name = "sb-${local.ghes_instance_name}"
-
-  location                    = "EUROPE-WEST4"
-  storage_class               = "STANDARD"
-  uniform_bucket_level_access = true
+  name     = random_string.unique_name.result
+  location = local.gcp_region
 }
