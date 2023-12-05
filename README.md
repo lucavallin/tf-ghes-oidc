@@ -3,25 +3,21 @@ Terraform configuration to setup cloud resources for OpenID Connect (OIDC) on Gi
 
 Configuring cloud resources to utilize Actions on GHES with OIDC can be a lengthy and challenging task due to stringent security demands that necessitate precise configuration. This repository, although not intended for production purposes, includes Terraform configurations necessary for creating resources across the top three enterprise cloud services: Azure, Amazon Web Services (AWS), and Google Cloud Platform (GCP).
 
-This Terraform configuration is designed to be executed by an individual user, rather than by a Service Account, who is logged into their chosen cloud provider through the corresponding CLI.
+This Terraform configuration is designed to be executed by an individual user, rather than by a Service Account, who is logged into their chosen cloud provider through the corresponding CLI on Linux.
 
 ## Requirements
 
-To utilize this repository, the following are required:
-
-- Terraform (see [installation guide](https://developer.hashicorp.com/terraform/install))
-- A project (or equivalent concept) set up on either Azure, AWS, or Google Cloud for resource creation.
+To utilize this repository, a project (or equivalent concept) set up on (either) Azure, AWS, Google Cloud for resource creation is required.
 
 ## Usage
 
 To deploy the resources, follow these steps:
 
-1. Install the relevant cloud CLI by executing one of the scripts in the `scripts/` directory: `azure-cli.sh`, `aws-cli.sh`, or `gcp-cli.sh`.
-1. Refresh the console profile file (such as `~/.bashrc`) to enable the use of the CLI without requiring the full path.
-1. Initialize the chosen cloud CLI and authenticate with your cloud provider.
+1. Install Terraform and the cloud provider CLIs by executing the `scripts/install.sh` script. If needed, refresh the console profile file (such as `~/.bashrc`) to enable the use of the CLI without requiring the full path.
+1. Initialize the (chosen) cloud CLI(s) and authenticate with your cloud provider(s).
+1. Navigate to the `src` directory.
 1. Run `terraform init` to initialize Terraform and install necessary dependencies.
 1. The default Terraform `backend` is set to `local`, meaning Terraform state is stored locally. This can be altered to any supported backend.
-1. Navigate to the `src` directory.
 1. Change the name of `terraform.tfvars.example` to `terraform.tfvars` and modify the variables to suit your setup. The `terraform.tfvars` file holds the configuration for the Terraform files.
 1. Execute `terraform plan -out=oidc.plan` to prepare for resource creation. This plan is saved in the `oidc.plan` file for the next step.
 1. Use `terraform apply oidc.plan` to initiate the creation of the resources.
@@ -47,6 +43,10 @@ The required resources for Azure are detailed in the `src/azure.tf` file. The co
 
 ### AWS
 
+- create access keys
+- aws cli, run `aws configure`
+
+
 ### Google Cloud
 
 Before initiating resource creation in a Google Cloud project, you should follow these preparatory steps:
@@ -61,3 +61,6 @@ The required resources for Google Cloud are detailed in the `src/gcp.tf` file. T
 ## Improvements
 
 In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
+
+- Make regions configurable
+- Use random names everywhere?

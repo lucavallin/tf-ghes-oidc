@@ -17,6 +17,17 @@ output "azure_blob_endpoint_suffix" {
   value = local.azure_blob_endpoint_suffix
 }
 
+# AWS Configuration for OIDC
+output "aws_s3_bucket" {
+  value = aws_s3_bucket.this.bucket
+}
+output "aws_role" {
+  value = ""
+}
+output "aws_region" {
+  value = ""
+}
+
 # Google Cloud Configuration for OIDC
 output "gcp_service_url" {
   value = "https://${local.gcp_service_url}"

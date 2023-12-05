@@ -8,17 +8,9 @@ resource "azurerm_resource_group" "this" {
   location = "West Europe"
 }
 
-resource "random_string" "az_storage_account_name" {
-  length  = 24
-  lower   = true
-  numeric = true
-  special = false
-  upper   = false
-}
-
 # Storage Account for Actions data
 resource "azurerm_storage_account" "this" {
-  name                = random_string.az_storage_account_name.result
+  name                = "0b9y8agfccugp9mp3pyuvqc7"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   account_tier        = "Standard"

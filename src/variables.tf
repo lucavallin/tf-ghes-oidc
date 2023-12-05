@@ -1,19 +1,19 @@
-# The hostname of the GHES instance (e.g. my-ghes-instance)
 variable "GHES_INSTANCE_NAME" {
-  type = string
+  type        = string
+  description = "Name of the GHES instance (e.g. my-ghes-instance)"
 }
 
-# The URL of the GHES instance (e.g. my-ghes-instance.com)
 variable "GHES_URL" {
-  type = string
+  type        = string
+  description = "URL of the GHES instance without 'https://' (e.g. my-ghes-instance.com)"
 }
 
-# ID of the Azure subscription to use
 variable "AZURE_SUBSCRIPTION_ID" {
-  type = string
+  type        = string
+  description = "ID of the Azure subscription to use"
 }
 
-# ID of the Google Cloud project to use
 variable "GCP_PROJECT_ID" {
-  type = string
+  type        = string
+  description = "ID of the Google Cloud project to use"
 }

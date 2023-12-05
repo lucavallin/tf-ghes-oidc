@@ -9,3 +9,11 @@ locals {
   gcp_project_id  = var.GCP_PROJECT_ID
   gcp_service_url = "storage.googleapis.com"
 }
+
+resource "random_string" "unique_name" {
+  length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
