@@ -3,12 +3,14 @@ Terraform configuration to setup cloud resources for OpenID Connect (OIDC) on Gi
 
 Configuring cloud resources to utilize Actions on GHES with OIDC can be a lengthy and challenging task due to stringent security demands that necessitate precise configuration. This repository, although not intended for production purposes, includes Terraform configurations necessary for creating resources across the top three enterprise cloud services: Azure, Amazon Web Services (AWS), and Google Cloud Platform (GCP).
 
+This Terraform configuration is designed to be executed by an individual user, rather than by a Service Account, who is logged into their chosen cloud provider through the corresponding CLI.
+
 ## Requirements
 
 To utilize this repository, the following are required:
 
 - Terraform (see [installation guide](https://developer.hashicorp.com/terraform/install))
-- A project set up on either Azure, AWS, or Google Cloud for resource creation.
+- A project (or equivalent concept) set up on either Azure, AWS, or Google Cloud for resource creation.
 
 ## Usage
 
@@ -34,6 +36,15 @@ Useful Information: This repository's configuration is verified through a GitHub
 
 ### Azure
 
+Prior to starting resource creation in Azure, follow these preliminary steps:
+
+1. Ensure the availability of an Azure subscription for your use.
+2. Execute `az login --use-device-code` to authenticate with Azure.
+3. If the specific Azure subscription you wish to use is not already active, set it using `az account set --subscription="SUBSCRIPTION_ID"`.
+4. Modify the `AZURE_SUBSCRIPTION_ID` variable in the `terraform.tfvars` file to match the ID of your chosen Azure subscription for resource deployment.
+
+The required resources for Azure are detailed in the `src/azure.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `azure_tenant_id`, `azure_client_id`, `azure_storage_account_name`, and `azure_blob_endpoint_suffix`.
+
 ### AWS
 
 ### Google Cloud
@@ -46,3 +57,7 @@ Before initiating resource creation in a Google Cloud project, you should follow
 4. Modify the `GCP_PROJECT_ID` variable in the `terraform.tfvars` file to match the ID of your chosen Google Cloud project for resource deployment.
 
 The required resources for Google Cloud are detailed in the `src/gcp.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `gcp_service_url`, `gcp_bucket_name`, `gcp_workload_identity_provider_id`, and `gcp_service_account`.
+
+## Improvements
+
+In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
