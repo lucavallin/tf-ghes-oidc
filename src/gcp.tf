@@ -1,9 +1,3 @@
-locals {
-  gcp_project_id = var.GCP_PROJECT_ID
-  ghes_hostname  = var.GHES_HOSTNAME
-  ghes_url       = var.GHES_URL
-}
-
 data "google_project" "this" {
   project_id = local.gcp_project_id
 }
@@ -22,14 +16,14 @@ resource "google_project_service" "iam_credentials" {
 resource "google_iam_workload_identity_pool" "this" {
   project                   = data.google_project.this.project_id
   workload_identity_pool_id = "wip-ghes"
-  description               = "Identity Pool for GHES instance ${local.ghes_hostname}."
+  description               = "Identity Pool for GHES instance ${local.ghes_instance_name}."
 }
 
 resource "google_iam_workload_identity_pool_provider" "this" {
   project                            = data.google_project.this.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.this.workload_identity_pool_id
   workload_identity_pool_provider_id = "wipp-ghes-oidc"
-  description                        = "Identity Pool Provider for OIDC on GHES instance ${local.ghes_hostname}."
+  description                        = "Identity Pool Provider for OIDC on GHES instance ${local.ghes_instance_name}."
 
   attribute_condition = "google.subject == \"${local.ghes_url}\""
   attribute_mapping = {
@@ -37,16 +31,16 @@ resource "google_iam_workload_identity_pool_provider" "this" {
   }
 
   oidc {
-    issuer_uri = "https://${local.ghes_url}/_services/token"
+    issuer_uri = local.issuer_uri
   }
 }
 
 # Create service account and assign required permissions
 resource "google_service_account" "this" {
   project      = data.google_project.this.project_id
-  account_id   = "sa-${substr(local.ghes_hostname, 0, 20)}-oidc"
+  account_id   = "sa-${substr(local.ghes_instance_name, 0, 20)}-oidc"
   display_name = "Service Account for OIDC on GHES"
-  description  = "Service Account for OIDC on GHES instance ${local.ghes_hostname}."
+  description  = "Service Account for OIDC on GHES instance ${local.ghes_instance_name}."
 }
 
 resource "google_project_iam_binding" "sa_storage" {
@@ -71,7 +65,7 @@ resource "google_service_account_iam_binding" "sa_workload_identity" {
 # Storage bucket for Actions data
 resource "google_storage_bucket" "this" {
   project = data.google_project.this.project_id
-  name    = "sb-${local.ghes_hostname}"
+  name    = "sb-${local.ghes_instance_name}"
 
   location                    = "EUROPE-WEST4"
   storage_class               = "STANDARD"

@@ -1,5 +1,5 @@
 # The hostname of the GHES instance (e.g. my-ghes-instance)
-variable "GHES_HOSTNAME" {
+variable "GHES_INSTANCE_NAME" {
   type = string
 }
 
