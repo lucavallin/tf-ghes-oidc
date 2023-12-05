@@ -1,0 +1,3 @@
+GHES_HOSTNAME  = ""
+GHES_URL       = ""
+GCP_PROJECT_ID = ""
