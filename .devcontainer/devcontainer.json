@@ -1,0 +1,7 @@
+{
+    "name": "tf-ghes-oidc",
+    "features": {
+        "ghcr.io/devcontainers/features/terraform:1": {}
+    }
+    "postCreateCommand": "../scripts/install.sh"
+}
