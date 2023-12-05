@@ -8,6 +8,11 @@ variable "GHES_URL" {
   type = string
 }
 
+# ID of the Azure subscription to use
+variable "AZURE_SUBSCRIPTION_ID" {
+  type = string
+}
+
 # ID of the Google Cloud project to use
 variable "GCP_PROJECT_ID" {
   type = string

@@ -3,6 +3,7 @@ locals {
   ghes_url           = var.GHES_URL
   issuer_uri         = "https://${local.ghes_url}/_services/token"
 
+  azure_subscription_id      = var.AZURE_SUBSCRIPTION_ID
   azure_blob_endpoint_suffix = "core.windows.net"
 
   gcp_project_id  = var.GCP_PROJECT_ID
