@@ -7,10 +7,9 @@ This Terraform configuration is designed to be executed by an individual user, r
 
 ## Requirements
 
-To utilize this repository, a project (or equivalent concept) set up on (either) Azure, AWS, Google Cloud for resource creation is required.
+To make use of this repository, you need to have a project or a similar setup on either Azure, AWS, or Google Cloud, specifically for creating resources.
 
-- thumbprint generator script
-- add ssh keys to GHES
+Additionally, you need access to the GHES instance, both through its user interface and over SSH. Make sure your SSH keys are properly set up in the GHES Management Console to ensure this access.
 
 ## Usage
 
