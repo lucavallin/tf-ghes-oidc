@@ -9,6 +9,9 @@ This Terraform configuration is designed to be executed by an individual user, r
 
 To utilize this repository, a project (or equivalent concept) set up on (either) Azure, AWS, Google Cloud for resource creation is required.
 
+- thumbprint generator script
+- add ssh keys to GHES
+
 ## Usage
 
 To deploy the resources, follow these steps:
@@ -30,7 +33,7 @@ Useful Information: This repository's configuration is verified through a GitHub
 
 ## Variables
 
-The Terraform configuration expects to receive a value for variables defined in `src/variables.tf`. The `terraform.tfvars.example` file can be used as a template. You can rename the `terraform.tfvars.example` file to `terraform.tfvars` and provide the following:
+The Terraform setup requires values for the variables listed in `src/variables.tf`. The file `terraform.tfvars.example` serves as a guide. By renaming `terraform.tfvars.example` to `terraform.tfvars`, you can supply the necessary information as follows:
 
 - `GHES_INSTANCE_NAME`: Name of the GHES instance (e.g. my-ghes-instance)
 - `GHES_URL`: URL of the GHES instance without 'https://' (e.g. my-ghes-instance.com)
@@ -42,7 +45,6 @@ The Terraform configuration expects to receive a value for variables defined in 
 - `AWS_OIDC_THUMBPRINT`: Thumbprint of the GHES Instance to for OIDC setup on AWS
 - `GCP_PROJECT_ID`: ID of the Google Cloud Project to use
 - `GCP_REGION`: Google Cloud Region for OIDC Resources (defaults to `EUROPE-WEST4`)
-
 
 ## Cloud Providers
 
@@ -59,9 +61,14 @@ The required resources for Azure are detailed in the `src/azure.tf` file. The co
 
 ### AWS
 
-- create access keys
-- aws cli, run `aws configure`
-- thumbprint per https://docs.github.com/en/enterprise-server@3.10/admin/github-actions/enabling-github-actions-for-github-enterprise-server/enabling-github-actions-with-amazon-s3-storage#1-create-an-amazon-oidc-provider
+To set up the resources on AWS, you need to follow these steps:
+
+1. In AWS, create a set of `Access Keys` for your account. You can find this in the `Security Credentials` section ([see the documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)).
+2. Run the `aws configure` command and enter the `Access Keys` you just created. This step links the AWS CLI with your AWS account.
+3. Create a new Thumbprint for your GHES instance as outlined in the [documentation](https://docs.github.com/en/enterprise-server@3.10/admin/github-actions/enabling-github-actions-for-github-enterprise-server/enabling-github-actions-with-amazon-s3-storage#1-create-an-amazon-oidc-provider). This Thumbprint is necessary for the OIDC setup.
+4. Update the `AWS_REGION` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
+
+The required resources for AWS are detailed in the `src/aws.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `aws_s3_bucket`, `aws_role` and `aws_region`.
 
 
 ### Google Cloud
@@ -78,6 +85,3 @@ The required resources for Google Cloud are detailed in the `src/gcp.tf` file. T
 ## Improvements
 
 In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
-
-- thumbprint generator script
-- add ssh keys to GHES
