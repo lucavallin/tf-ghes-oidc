@@ -35,5 +35,5 @@ terraform.rc
 
 google-cloud-cli-*
 google-cloud-sdk/
-*.plan
+plan
 awscliv2.zip

@@ -19,14 +19,30 @@ To deploy the resources, follow these steps:
 1. Run `terraform init` to initialize Terraform and install necessary dependencies.
 1. The default Terraform `backend` is set to `local`, meaning Terraform state is stored locally. This can be altered to any supported backend.
 1. Change the name of `terraform.tfvars.example` to `terraform.tfvars` and modify the variables to suit your setup. The `terraform.tfvars` file holds the configuration for the Terraform files.
-1. Execute `terraform plan -out=oidc.plan` to prepare for resource creation. This plan is saved in the `oidc.plan` file for the next step.
-1. Use `terraform apply oidc.plan` to initiate the creation of the resources.
+1. Execute `terraform plan -out=plan` to prepare for resource creation. This plan is saved in the `plan` file for the next step.
+1. Use `terraform apply plan` to initiate the creation of the resources.
 1. The configuration necessary for enabling Actions on GHES with OIDC in the GHES Management Console is provided at the conclusion of the process, as dictated by the outputs specified in `src/outputs.tf`.
 1. Additional instructions specific to each cloud provider are detailed further below.
 
 > Note: If you're just experimenting with Actions on GHES with OIDC, use `terraform destroy` to delete all resources created by Terraform to prevent unwanted expenses.
 
 Useful Information: This repository's configuration is verified through a GitHub Action in `.github/terraform.yml`, which ensures its accuracy.
+
+## Variables
+
+The Terraform configuration expects to receive a value for variables defined in `src/variables.tf`. The `terraform.tfvars.example` file can be used as a template. You can rename the `terraform.tfvars.example` file to `terraform.tfvars` and provide the following:
+
+- `GHES_INSTANCE_NAME`: Name of the GHES instance (e.g. my-ghes-instance)
+- `GHES_URL`: URL of the GHES instance without 'https://' (e.g. my-ghes-instance.com)
+- `AZURE_SUBSCRIPTION_ID`: ID of the Azure Subscription to use
+- `AZURE_REGION`: Region for the Azure Storage Account (defaults to `West Europe`)
+- `AZURE_STORAGE_ACCOUNT_TIER`: Tier for the Azure Storage Account (defaults to `Standard`)
+- `AZURE_STORAGE_ACCOUNT_REPLICATION_TYPE`: Replication Type for Azure Storage Account (defaults to `LRS`)
+- `AWS_REGION`: AWS Region for OIDC Resources (defaults to `eu-north-1`)
+- `AWS_OIDC_THUMBPRINT`: Thumbprint of the GHES Instance to for OIDC setup on AWS
+- `GCP_PROJECT_ID`: ID of the Google Cloud Project to use
+- `GCP_REGION`: Google Cloud Region for OIDC Resources (defaults to `EUROPE-WEST4`)
+
 
 ## Cloud Providers
 
@@ -63,6 +79,5 @@ The required resources for Google Cloud are detailed in the `src/gcp.tf` file. T
 
 In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
 
-- Document variables
 - thumbprint generator script
 - add ssh keys to GHES

@@ -15,13 +15,13 @@ variable "AZURE_SUBSCRIPTION_ID" {
 
 variable "AZURE_REGION" {
   type        = string
-  description = "Azure: Region of the Storage Account"
+  description = "Azure: Region for the Storage Account"
   default     = "West Europe"
 }
 
 variable "AZURE_STORAGE_ACCOUNT_TIER" {
   type        = string
-  description = "Azure: Tier of the Storage Account"
+  description = "Azure: Tier for the Storage Account"
   default     = "Standard"
 }
 
