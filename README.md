@@ -63,7 +63,7 @@ The required resources for Azure are detailed in the `src/azure.tf` file. The co
 To set up the resources on AWS, you need to follow these steps:
 
 1. In AWS, create a set of `Access Keys` for your account. You can find this in the `Security Credentials` section ([see the documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)).
-2. Run the `aws configure` command and enter the `Access Keys` you just created. This step links the AWS CLI with your AWS account.
+2. Run the `aws configure` command and enter the `Access Keys` you just created. This step links the AWS CLI with your AWS account and creates the `~/.aws/config` and `~/.aws/credentials` files required by the Terraform AWS provider.
 3. Create a new Thumbprint for your GHES instance as outlined in the [documentation](https://docs.github.com/en/enterprise-server@3.10/admin/github-actions/enabling-github-actions-for-github-enterprise-server/enabling-github-actions-with-amazon-s3-storage#1-create-an-amazon-oidc-provider). This Thumbprint is necessary for the OIDC setup.
 4. Update the `AWS_REGION` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
 
