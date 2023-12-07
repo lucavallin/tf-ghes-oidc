@@ -12,14 +12,14 @@ resource "google_project_service" "iam_credentials" {
 
 # Setup Workload Identity Pool and Provider
 resource "google_iam_workload_identity_pool" "this" {
-  workload_identity_pool_id = local.ghes_instance_name
+  workload_identity_pool_id = local.ghes_name
 }
 
 resource "google_iam_workload_identity_pool_provider" "this" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.this.workload_identity_pool_id
-  workload_identity_pool_provider_id = local.ghes_instance_name
+  workload_identity_pool_provider_id = local.ghes_name
 
-  attribute_condition = "google.subject == \"${local.ghes_url}\""
+  attribute_condition = "google.subject == \"${local.ghes_hostname}\""
   attribute_mapping = {
     "google.subject" = "assertion.sub"
   }
@@ -31,7 +31,7 @@ resource "google_iam_workload_identity_pool_provider" "this" {
 
 # Create service account and assign required permissions
 resource "google_service_account" "this" {
-  account_id = substr(local.ghes_instance_name, 0, 28)
+  account_id = substr(local.ghes_name, 0, 28)
 }
 
 resource "google_project_iam_binding" "sa_storage" {
@@ -50,7 +50,7 @@ resource "google_project_iam_binding" "sa_token_creator" {
 resource "google_service_account_iam_binding" "sa_workload_identity" {
   service_account_id = google_service_account.this.id
   role               = "roles/iam.workloadIdentityUser"
-  members            = ["principal://iam.googleapis.com/${google_iam_workload_identity_pool.this.name}/subject/${local.ghes_url}"]
+  members            = ["principal://iam.googleapis.com/${google_iam_workload_identity_pool.this.name}/subject/${local.ghes_hostname}"]
 }
 
 # Storage bucket for Actions data

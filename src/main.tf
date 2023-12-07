@@ -1,7 +1,7 @@
 locals {
-  ghes_instance_name = var.GHES_INSTANCE_NAME
-  ghes_url           = var.GHES_URL
-  oidc_issuer_uri    = "https://${local.ghes_url}/_services/token"
+  ghes_name       = var.GHES_NAME
+  ghes_hostname   = var.GHES_HOSTNAME
+  oidc_issuer_uri = "https://${local.ghes_hostname}/_services/token"
 
   azure_subscription_id                  = var.AZURE_SUBSCRIPTION_ID
   azure_region                           = var.AZURE_REGION

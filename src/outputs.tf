@@ -1,6 +1,6 @@
 # GitHub Enterprise Server URL
 output "ghes_settings_url" {
-  value = "https://${local.ghes_url}:8443"
+  value = "https://${local.ghes_hostname}:8443"
 }
 
 # Azure Configuration for OIDC

@@ -34,8 +34,8 @@ Useful Information: This repository's configuration is verified through a GitHub
 
 The Terraform setup requires values for the variables listed in `src/variables.tf`. The file `terraform.tfvars.example` serves as a guide. By renaming `terraform.tfvars.example` to `terraform.tfvars`, you can supply the necessary information as follows:
 
-- `GHES_INSTANCE_NAME`: Name of the GHES instance (e.g. my-ghes-instance)
-- `GHES_URL`: URL of the GHES instance without 'https://' (e.g. my-ghes-instance.com)
+- `GHES_NAME`: Name of the GHES instance (e.g. my-ghes-instance)
+- `GHES_HOSTNAME`: URL of the GHES instance without 'https://' (e.g. my-ghes-instance.com)
 - `AZURE_SUBSCRIPTION_ID`: ID of the Azure Subscription to use
 - `AZURE_REGION`: Region for the Azure Storage Account (defaults to `West Europe`)
 - `AZURE_STORAGE_ACCOUNT_TIER`: Tier for the Azure Storage Account (defaults to `Standard`)
@@ -65,6 +65,15 @@ To set up the resources on AWS, you need to follow these steps:
 1. In AWS, create a set of `Access Keys` for your account. You can find this in the `Security Credentials` section ([see the documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)).
 2. Run the `aws configure` command and enter the `Access Keys` you just created. This step links the AWS CLI with your AWS account and creates the `~/.aws/config` and `~/.aws/credentials` files required by the Terraform AWS provider.
 3. Create a new Thumbprint for your GHES instance as outlined in the [documentation](https://docs.github.com/en/enterprise-server@3.10/admin/github-actions/enabling-github-actions-for-github-enterprise-server/enabling-github-actions-with-amazon-s3-storage#1-create-an-amazon-oidc-provider). This Thumbprint is necessary for the OIDC setup.
+
+This repository also provides the `scripts/thumbprint.sh` script which generates the Thumbprint. Use it as follows:
+
+```bash
+# ./script/thumbprint.sh <GHES_HOSTNAME>
+$ ./script/thumbprint.sh my-ghes-instance.example.com
+$ AB1234567890ABCDEF1234567890ABCDEF123456 # Thumbprint
+```
+
 4. Update the `AWS_REGION` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
 
 The required resources for AWS are detailed in the `src/aws.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `aws_s3_bucket`, `aws_role` and `aws_region`.

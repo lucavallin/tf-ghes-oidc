@@ -15,7 +15,7 @@ resource "aws_iam_openid_connect_provider" "this" {
 
 # Roles & Policies for OIDC
 resource "aws_iam_role" "this" {
-  name = local.ghes_instance_name
+  name = local.ghes_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",

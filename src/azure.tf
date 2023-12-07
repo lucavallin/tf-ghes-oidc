@@ -4,7 +4,7 @@ data "azuread_client_config" "this" {}
 
 # Resource group to contain resources for Actions on GHES with OIDC
 resource "azurerm_resource_group" "this" {
-  name     = local.ghes_instance_name
+  name     = local.ghes_name
   location = local.azure_region
 }
 
@@ -19,15 +19,15 @@ resource "azurerm_storage_account" "this" {
 
 # Azure Active Directory (AAD) application for OIDC
 resource "azuread_application" "this" {
-  display_name = local.ghes_instance_name
+  display_name = local.ghes_name
 }
 
 resource "azuread_application_federated_identity_credential" "this" {
   application_id = azuread_application.this.id
-  display_name   = local.ghes_instance_name
+  display_name   = local.ghes_name
   audiences      = ["api://AzureADTokenExchange"]
   issuer         = local.oidc_issuer_uri
-  subject        = local.ghes_url
+  subject        = local.ghes_hostname
 }
 
 # Grant the AAD Application access to the Storage Account

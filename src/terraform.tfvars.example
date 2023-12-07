@@ -1,5 +1,5 @@
-GHES_INSTANCE_NAME                     = ""
-GHES_URL                               = ""
+GHES_NAME                     = ""
+GHES_HOSTNAME                               = ""
 AZURE_SUBSCRIPTION_ID                  = ""
 AZURE_REGION                           = "West Europe"
 AZURE_STORAGE_ACCOUNT_TIER             = "Standard"

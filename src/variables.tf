@@ -1,11 +1,11 @@
-variable "GHES_INSTANCE_NAME" {
+variable "GHES_NAME" {
   type        = string
   description = "GHES: Name of the instance (e.g. my-ghes-instance)"
 }
 
-variable "GHES_URL" {
+variable "GHES_HOSTNAME" {
   type        = string
-  description = "GHES: URL of the instance without 'https://' (e.g. my-ghes-instance.com)"
+  description = "GHES: Hostname of the instance without 'https://' (e.g. my-ghes-instance.com)"
 }
 
 variable "AZURE_SUBSCRIPTION_ID" {
