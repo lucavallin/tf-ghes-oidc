@@ -71,7 +71,7 @@ This repository also provides the `scripts/thumbprint.sh` script which generates
 ```bash
 # ./script/thumbprint.sh <GHES_HOSTNAME>
 $ ./script/thumbprint.sh my-ghes-instance.example.com
-$ AB1234567890ABCDEF1234567890ABCDEF123456 # Thumbprint
+$ Thumbprint: AB1234567890ABCDEF1234567890ABCDEF123456 # Thumbprint
 ```
 
 4. Update the `AWS_REGION` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
