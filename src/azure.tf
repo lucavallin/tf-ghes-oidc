@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "this" {
 
 # Storage Account for Actions data
 resource "azurerm_storage_account" "this" {
-  name                     = random_string.unique_name.result
+  name                     = random_string.long.result
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = local.azure_storage_account_tier

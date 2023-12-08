@@ -18,8 +18,16 @@ locals {
   gcp_service_url = "storage.googleapis.com"
 }
 
-resource "random_string" "unique_name" {
+resource "random_string" "long" {
   length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
+resource "random_string" "short" {
+  length  = 8
   lower   = true
   numeric = true
   special = false

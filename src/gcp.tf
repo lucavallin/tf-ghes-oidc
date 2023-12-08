@@ -1,3 +1,8 @@
+locals {
+  # Used to avoid conflicts when recreating resources after destruction
+  workload_id = substr("${local.ghes_name}-${random_string.short.result}", 0, 32)
+}
+
 data "google_project" "this" {
   project_id = local.gcp_project_id
 }
@@ -12,12 +17,12 @@ resource "google_project_service" "iam_credentials" {
 
 # Setup Workload Identity Pool and Provider
 resource "google_iam_workload_identity_pool" "this" {
-  workload_identity_pool_id = local.ghes_name
+  workload_identity_pool_id = local.workload_id
 }
 
 resource "google_iam_workload_identity_pool_provider" "this" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.this.workload_identity_pool_id
-  workload_identity_pool_provider_id = local.ghes_name
+  workload_identity_pool_provider_id = local.workload_id
 
   attribute_condition = "google.subject == \"${local.ghes_hostname}\""
   attribute_mapping = {
@@ -55,6 +60,6 @@ resource "google_service_account_iam_binding" "sa_workload_identity" {
 
 # Storage bucket for Actions data
 resource "google_storage_bucket" "this" {
-  name     = random_string.unique_name.result
+  name     = random_string.long.result
   location = local.gcp_region
 }
