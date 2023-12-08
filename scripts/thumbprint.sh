@@ -17,4 +17,4 @@ cleaned_fingerprint=${fingerprint#"SHA1 Fingerprint="}
 thumbprint=${cleaned_fingerprint//:/}
 
 # Print the output
-echo "Thumbprint: $thumbprint"
+echo "GHES Thumbprint: $thumbprint"
