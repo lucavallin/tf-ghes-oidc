@@ -42,6 +42,11 @@ variable "AWS_OIDC_THUMBPRINT" {
   description = "AWS: Thumbprint of the GHES Instance for OIDC"
 }
 
+variable "AWS_STS_ENDPOINT" {
+  type        = string
+  description = "AWS: URL of the STS endpoint to use as audience for OIDC"
+}
+
 variable "GCP_PROJECT_ID" {
   type        = string
   description = "Google Cloud: ID of the Project to use"

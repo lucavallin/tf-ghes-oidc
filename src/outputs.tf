@@ -27,6 +27,9 @@ output "aws_role" {
 output "aws_region" {
   value = data.aws_region.this.name
 }
+output "aws_sts_endpoint" {
+  value = local.aws_sts_endpoint
+}
 
 # Google Cloud Configuration for OIDC
 output "gcp_service_url" {

@@ -74,7 +74,7 @@ $ ./script/thumbprint.sh my-ghes-instance.example.com
 $ GHES Thumbprint: AB1234567890ABCDEF1234567890ABCDEF123456 # Thumbprint
 ```
 
-4. Update the `AWS_REGION` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
+1. Update the `AWS_REGION`, `AWS_STS_ENDPOINT` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
 
 The required resources for AWS are detailed in the `src/aws.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `aws_s3_bucket`, `aws_role` and `aws_region`.
 

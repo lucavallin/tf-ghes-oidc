@@ -10,7 +10,7 @@ locals {
   azure_blob_endpoint_suffix             = "core.windows.net"
 
   aws_region          = var.AWS_REGION
-  aws_oidc_client_id  = "sts.amazonaws.com"
+  aws_sts_endpoint    = var.AWS_STS_ENDPOINT
   aws_oidc_thumbprint = var.AWS_OIDC_THUMBPRINT
 
   gcp_project_id  = var.GCP_PROJECT_ID
