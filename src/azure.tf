@@ -38,5 +38,5 @@ resource "azuread_service_principal" "this" {
 resource "azurerm_role_assignment" "this" {
   scope                = data.azurerm_subscription.this.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = azuread_service_principal.this.id
+  principal_id         = azuread_service_principal.this.object_id
 }
