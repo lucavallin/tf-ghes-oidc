@@ -12,6 +12,7 @@ fingerprint=$(openssl s_client -connect $hostname:443 < /dev/null 2>/dev/null | 
 
 # Remove 'SHA1\nFingerprint=' part
 cleaned_fingerprint=${fingerprint#"SHA1 Fingerprint="}
+cleaned_fingerprint=${cleaned_fingerprint#"sha1 Fingerprint="}
 
 # Remove all colons
 thumbprint=${cleaned_fingerprint//:/}
