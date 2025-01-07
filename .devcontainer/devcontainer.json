@@ -1,6 +1,18 @@
 {
     "name": "tf-ghes-oidc",
     "features": {
-        "ghcr.io/devcontainers/features/terraform:1": {}
+        "ghcr.io/devcontainers/features/terraform:1": {},
+        "ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers/features/azure-cli:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "amazonwebservices.aws-toolkit-vscode",
+                "GoogleCloudTools.cloudcode",
+                "ms-vscode.vscode-node-azure-pack",
+                "hashicorp.terraform"
+            ]
+        }
     }
 }
