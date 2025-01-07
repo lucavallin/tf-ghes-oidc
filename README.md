@@ -74,7 +74,7 @@ $ ./script/thumbprint.sh my-ghes-instance.example.com
 $ GHES Thumbprint: AB1234567890ABCDEF1234567890ABCDEF123456 # Thumbprint
 ```
 
-1. Update the `AWS_REGION`, `AWS_STS_ENDPOINT` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup.
+1. Update the `AWS_REGION`, `AWS_STS_ENDPOINT` and `AWS_OIDC_THUMBPRINT` variables in the `terraform.tfvars` file. Set them to your chosen AWS region for deploying resources and the Thumbprint of the GHES instance for the OIDC setup. `AWS_STS_ENDPOINT` can be set to `sts.amazonaws.com` unless you are testing custom STS endpoints.
 
 The required resources for AWS are detailed in the `src/aws.tf` file. The configuration essential for configuring Actions on GHES with OIDC in the Management Console is produced as outputs: `aws_s3_bucket`, `aws_role` and `aws_region`.
 
@@ -93,3 +93,5 @@ The required resources for Google Cloud are detailed in the `src/gcp.tf` file. T
 ## Improvements
 
 In the future, we could make things better by splitting the settings for different cloud services like Azure, AWS, and Google Cloud into their own separate parts. This would make it easier and more flexible to work with each one on its own. It would help users handle their settings for each cloud service by themselves. This way, if you're just working with one cloud service, things would be smoother.
+
+For now you have to comment out the code in `aws.tf`, `azure.tf`, or `gcp.tf` and the corresponding outputs in `outputs.tf` for the cloud providers you do not want to use.
