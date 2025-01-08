@@ -32,7 +32,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-.terraform.lock.hcl
 
 google-cloud-cli-*
 google-cloud-sdk/
