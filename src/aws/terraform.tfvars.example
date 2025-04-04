@@ -1,0 +1,8 @@
+# GHES
+GHES_NAME     = ""
+GHES_HOSTNAME = ""
+
+# AWS
+AWS_REGION          = "eu-north-1"
+AWS_STS_ENDPOINT    = "sts.eu-north-1.amazonaws.com"
+AWS_OIDC_THUMBPRINT = ""

@@ -15,7 +15,7 @@ cleaned_fingerprint=${fingerprint#"SHA1 Fingerprint="}
 cleaned_fingerprint=${cleaned_fingerprint#"sha1 Fingerprint="}
 
 # Remove all colons
-thumbprint=${cleaned_fingerprint//:/}
+thumbprint=$(echo -n ${cleaned_fingerprint//:/} | tr '[:upper:]' '[:lower:]')
 
 # Print the output
 echo "GHES Thumbprint: $thumbprint"

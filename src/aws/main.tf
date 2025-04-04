@@ -1,3 +1,22 @@
+locals {
+  ghes_name       = var.GHES_NAME
+  ghes_hostname   = var.GHES_HOSTNAME
+  oidc_issuer_uri = "https://${local.ghes_hostname}/_services/token"
+
+  # AWS
+  aws_region          = var.AWS_REGION
+  aws_sts_endpoint    = var.AWS_STS_ENDPOINT
+  aws_oidc_thumbprint = var.AWS_OIDC_THUMBPRINT
+}
+
+resource "random_string" "long" {
+  length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
 # AWS Region for GHES configuration
 data "aws_region" "this" {}
 
@@ -9,7 +28,7 @@ resource "aws_s3_bucket" "this" {
 # OIDC provider for GHES
 resource "aws_iam_openid_connect_provider" "this" {
   url             = local.oidc_issuer_uri
-  client_id_list  = [local.aws_sts_endpoint]
+  client_id_list  = ["sts.amazonaws.com", local.aws_sts_endpoint]
   thumbprint_list = [local.aws_oidc_thumbprint]
 }
 
@@ -28,7 +47,11 @@ resource "aws_iam_role" "this" {
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
           StringEquals = {
-            "${aws_iam_openid_connect_provider.this.url}:aud" = local.aws_sts_endpoint
+            "${aws_iam_openid_connect_provider.this.url}:sub" : "${local.ghes_hostname}",
+            "${aws_iam_openid_connect_provider.this.url}:aud" = [
+              "sts.amazonaws.com",
+              local.aws_sts_endpoint
+            ]
           }
         }
       }
