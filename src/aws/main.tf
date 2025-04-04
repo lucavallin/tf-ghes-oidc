@@ -28,7 +28,7 @@ resource "aws_s3_bucket" "this" {
 # OIDC provider for GHES
 resource "aws_iam_openid_connect_provider" "this" {
   url             = local.oidc_issuer_uri
-  client_id_list  = [local.aws_sts_endpoint]
+  client_id_list  = ["sts.amazonaws.com", local.aws_sts_endpoint]
   thumbprint_list = [local.aws_oidc_thumbprint]
 }
 
