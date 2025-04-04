@@ -22,4 +22,5 @@ variable "AWS_OIDC_THUMBPRINT" {
 variable "AWS_STS_ENDPOINT" {
   type        = string
   description = "AWS: URL of the STS endpoint to use as audience for OIDC"
+  default     = "sts.eu-north-1.amazonaws.com"
 }
