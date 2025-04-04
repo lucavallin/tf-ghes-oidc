@@ -47,7 +47,11 @@ resource "aws_iam_role" "this" {
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
           StringEquals = {
-            "${aws_iam_openid_connect_provider.this.url}:aud" = local.aws_sts_endpoint
+            "${aws_iam_openid_connect_provider.this.url}:sub" : "${local.ghes_hostname}",
+            "${aws_iam_openid_connect_provider.this.url}:aud" = [
+              "sts.amazonaws.com",
+              local.aws_sts_endpoint
+            ]
           }
         }
       }
