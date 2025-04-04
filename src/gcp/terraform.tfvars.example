@@ -1,0 +1,7 @@
+# GHES
+GHES_NAME     = ""
+GHES_HOSTNAME = ""
+
+# GCP
+GCP_PROJECT_ID = ""
+GCP_REGION     = "EUROPE-WEST4"
