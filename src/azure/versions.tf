@@ -9,14 +9,6 @@ terraform {
       source  = "hashicorp/azuread"
       version = "3.2.0"
     }
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.92.0"
-    }
-    google = {
-      source  = "hashicorp/google"
-      version = "6.26.0"
-    }
     random = {
       source  = "hashicorp/random"
       version = "3.7.1"

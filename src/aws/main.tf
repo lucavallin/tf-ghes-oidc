@@ -1,3 +1,22 @@
+locals {
+  ghes_name       = var.GHES_NAME
+  ghes_hostname   = var.GHES_HOSTNAME
+  oidc_issuer_uri = "https://${local.ghes_hostname}/_services/token"
+
+  # AWS
+  aws_region          = var.AWS_REGION
+  aws_sts_endpoint    = var.AWS_STS_ENDPOINT
+  aws_oidc_thumbprint = var.AWS_OIDC_THUMBPRINT
+}
+
+resource "random_string" "long" {
+  length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
 # AWS Region for GHES configuration
 data "aws_region" "this" {}
 

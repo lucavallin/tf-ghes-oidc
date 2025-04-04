@@ -1,4 +1,31 @@
 locals {
+  ghes_name       = var.GHES_NAME
+  ghes_hostname   = var.GHES_HOSTNAME
+  oidc_issuer_uri = "https://${local.ghes_hostname}/_services/token"
+
+  # GCP
+  gcp_project_id  = var.GCP_PROJECT_ID
+  gcp_region      = var.GCP_REGION
+  gcp_service_url = "storage.googleapis.com"
+}
+
+resource "random_string" "long" {
+  length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
+resource "random_string" "short" {
+  length  = 8
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
+locals {
   # Used to avoid conflicts when recreating resources after destruction
   workload_id = substr("${local.ghes_name}-${random_string.short.result}", 0, 32)
 }
