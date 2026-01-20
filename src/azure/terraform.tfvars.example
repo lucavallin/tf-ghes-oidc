@@ -1,0 +1,9 @@
+# GHES
+GHES_NAME     = ""
+GHES_HOSTNAME = ""
+
+# Azure
+AZURE_SUBSCRIPTION_ID                  = ""
+AZURE_REGION                           = "West Europe"
+AZURE_STORAGE_ACCOUNT_TIER             = "Standard"
+AZURE_STORAGE_ACCOUNT_REPLICATION_TYPE = "LRS"

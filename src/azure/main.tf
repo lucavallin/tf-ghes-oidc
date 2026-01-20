@@ -1,3 +1,22 @@
+locals {
+  ghes_name     = var.GHES_NAME
+  ghes_hostname = var.GHES_HOSTNAME
+
+  # Azure
+  azure_subscription_id                  = var.AZURE_SUBSCRIPTION_ID
+  azure_region                           = var.AZURE_REGION
+  azure_storage_account_tier             = var.AZURE_STORAGE_ACCOUNT_TIER
+  azure_storage_account_replication_type = var.AZURE_STORAGE_ACCOUNT_REPLICATION_TYPE
+}
+
+resource "random_string" "long" {
+  length  = 24
+  lower   = true
+  numeric = true
+  special = false
+  upper   = false
+}
+
 data "azurerm_subscription" "this" {}
 
 data "azuread_client_config" "this" {}
@@ -26,7 +45,7 @@ resource "azuread_application_federated_identity_credential" "this" {
   application_id = azuread_application.this.id
   display_name   = local.ghes_name
   audiences      = ["api://AzureADTokenExchange"]
-  issuer         = local.oidc_issuer_uri
+  issuer         = "https://${local.ghes_hostname}/_services/token"
   subject        = local.ghes_hostname
 }
 

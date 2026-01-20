@@ -5,7 +5,19 @@
 
 version: 2
 updates:
-  - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "/src" # Location of package manifests
+  - package-ecosystem: "terraform"
+    directory: "/src"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "terraform"
+    directory: "/src/aws"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "terraform"
+    directory: "/src/azure"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "terraform"
+    directory: "/src/gcp"
     schedule:
       interval: "monthly"
