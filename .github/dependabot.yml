@@ -20,4 +20,4 @@ updates:
   - package-ecosystem: "terraform"
     directory: "/src/gcp"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
