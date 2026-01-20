@@ -10,11 +10,11 @@ variable "GHES_HOSTNAME" {
 
 variable "GCP_PROJECT_ID" {
   type        = string
-  description = "Google Cloud: ID of the Project to use"
+  description = "ID of the Google Cloud project to be used."
 }
 
 variable "GCP_REGION" {
   type        = string
   description = "Google Cloud: Region for OIDC Resources"
-  default     = "EUROPE-WEST4"
+  default     = "europe-west4"
 }

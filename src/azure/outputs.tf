@@ -8,5 +8,5 @@ output "azure_storage_account_name" {
   value = azurerm_storage_account.this.name
 }
 output "azure_blob_endpoint_suffix" {
-  value = local.azure_blob_endpoint_suffix
+  value = "core.windows.net"
 }
